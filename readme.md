@@ -59,6 +59,12 @@ MANAGER/CONTROLLER: permet de manipuler les lignes d'objets qui sera transferer 
 REPOSITORY: permet de faire des selections remonter les enregistrement de la bdd directement au seins du projet sous forme d'objet
 
 Migrations: fichier représente la bdd pour bosser en équipe 
+
+si je veux représenter dans mon projet un enregistrement de la bdd je me sers de l'entité qui correspond à la table
+
+quel est le service prinsipal qui me permet de travailler avec doctrine : l'entityManager
+
+le but d'un Repository: c'est de faire des sélections de données à partir d'une table
 ```
 
 ## Fixtures 
