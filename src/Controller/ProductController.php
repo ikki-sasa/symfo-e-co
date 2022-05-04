@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends AbstractController
 {
@@ -57,8 +60,18 @@ class ProductController extends AbstractController
     }
 
     #[Route('/admin/product/{id}/edit', name: 'product_edit')]
-    public function edit($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator)
+    public function edit($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em, ValidatorInterface $validator)
     {
+
+        $age = 200;
+        $resultat = $validator->validate($age, [
+            new LessThanOrEqual(120),
+            new GreaterThan(0)
+        ]);
+
+        // dd($resultat);
+
+
         $product = $productRepository->find($id);
 
         $form = $this->createForm(ProductType::class, $product);
