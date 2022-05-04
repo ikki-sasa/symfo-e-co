@@ -21,7 +21,7 @@ class ProductController extends AbstractController
 {
     #[Route('/{slug}', name: 'product_category')]
 
-    public function category($slug, CategoryRepository $categoryRepository) //: Response
+    public function category(SluggerInterface $slug, CategoryRepository $categoryRepository) //: Response
     {
         $category = $categoryRepository->findOneBy([
             'slug' => $slug
