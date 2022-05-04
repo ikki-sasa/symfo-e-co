@@ -2,23 +2,28 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use PhpParser\ErrorHandler\Collecting;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
 {
@@ -63,13 +68,18 @@ class ProductController extends AbstractController
     public function edit($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em, ValidatorInterface $validator)
     {
 
-        $age = 200;
-        $resultat = $validator->validate($age, [
-            new LessThanOrEqual(120),
-            new GreaterThan(0)
-        ]);
+        $product = new Product;
+        // $product->setName("Salut à tous")
+        //     ->setPrice(200);
 
-        // dd($resultat);
+        $resultat = $validator->validate($product);
+
+
+        if ($resultat->count() > 0) {
+            dd("il y' a des erreurs", $resultat);
+        }
+
+        dd("tout va bien");
 
 
         $product = $productRepository->find($id);

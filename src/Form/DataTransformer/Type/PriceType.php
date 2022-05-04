@@ -1,5 +1,7 @@
 <?php
 
+// namespace App\Form\DataTransformer\Type\PriceType;
+
 namespace App\Form\DataTransformer\Type\PriceType;
 
 namespace App\Form\Type;
