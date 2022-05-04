@@ -33,14 +33,14 @@ class Product
     #[ORM\Column(type: 'text')]
     private $shortDescription;
 
-    public static function laodValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraints('name', [
-            new Assert\NotBlank(['message' => 'Le nom du produit est obligatoire']),
-            new Assert\Length(['min' => 3, 'max' => 255, 'minMessage' => 'Le nom du produit doit contenir au moins 3 caractères'])
-        ]);
-        $metadata->addPropertyConstraint('price', new Assert\NotBlank(['message' => 'Le prix du produit est obligatoire']));
-    }
+    // public static function laodValidatorMetadata(ClassMetadata $metadata)
+    // {
+    //     $metadata->addPropertyConstraints('name', [
+    //         new Assert\NotBlank(['message' => 'Le nom du produit est obligatoire']),
+    //         new Assert\Length(['min' => 3, 'max' => 255, 'minMessage' => 'Le nom du produit doit contenir au moins 3 caractères'])
+    //     ]);
+    //     $metadata->addPropertyConstraint('price', new Assert\NotBlank(['message' => 'Le prix du produit est obligatoire']));
+    // }
 
 
     public function getId(): ?int
