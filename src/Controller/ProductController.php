@@ -69,17 +69,9 @@ class ProductController extends AbstractController
     {
 
         $product = new Product;
-        // $product->setName("Salut à tous")
-        //     ->setPrice(200);
 
         $resultat = $validator->validate($product);
-
-
-        if ($resultat->count() > 0) {
-            dd("il y' a des erreurs", $resultat);
-        }
-
-        dd("tout va bien");
+        // dd($resultat);
 
 
         $product = $productRepository->find($id);
@@ -90,7 +82,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
 
             // $response = new Response();
@@ -126,7 +118,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // $products = $form->getData();
             $product->setSlug(strtolower($slugger->slug($product->getName())));
             $manager = $managerRegistry->getManager();
